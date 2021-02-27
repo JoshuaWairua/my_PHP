@@ -1,0 +1,44 @@
+#creating a table in SQL
+
+CREATE TABLE posts (
+	id int(11) NOT null PRIMARY KEY AUTO_INCREMENT,
+    subject varchar(128) NOT null,
+    content varchar(1000) NOT null,
+    date datetime NOT null
+);
+
+
+#inserting data into tables in sql
+
+INSERT INTO posts (subject, content, date) VALUES ('This is my Subject', 'uspendisse potenti. In sed nibh quis nisl hendrerit mattis mollis sed enim. Curabitur hendrerit arcu a cursus volutpat. Donec venenatis est magna, id pulvinar quam posuere eu. Vestibulum cursus gravida orci ac faucibus. Fusce turpis eros, interdum non erat eget, pellentesque dictum lacus. In hac habitasse platea dictumst. Suspendisse vehicula efficitur orci. Pellentesque porttitor vel libero at congue. Quisque ultrices sem eget maximus mollis. Proin scelerisque lacus lacus, quis bibendum enim vestibulum eu.', '2021-02-14 12:08:45');
+
+
+#selecting data in a table
+
+SELECT subject FROM posts;
+SELECT * FROM posts;
+SELECT * FROM posts WHERE id='1';
+SELECT * FROM posts WHERE id='1' AND/OR subject='This is my Subject';
+
+
+#updating data in a table
+
+UPDATE posts
+SET subject = 'This is a test', content = 'This is the content'
+WHERE id = '1';
+
+
+#deleting data from a table
+
+DELETE FROM posts
+WHERE id = '1';
+
+
+#ordering data in tables
+
+SELECT * FROM posts ORDER BY id ASC;
+SELECT * FROM posts ORDER BY id DESC;
+SELECT * FROM posts ORDER BY subject ASC;
+SELECT * FROM posts ORDER BY subject DESC;
+
+
