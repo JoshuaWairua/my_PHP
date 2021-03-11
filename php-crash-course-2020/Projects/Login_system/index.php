@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <form action="./includeFiles/signup-inc.php" method="POST">
+    <form action="./includeFiles/signup-inc2.php" method="POST">
         <input type="text" name="first" id="" placeholder="first name"> <br>
         <input type="text" name="last" id="" placeholder="last name">   <br>
         <input type="text" name="email" id="" placeholder="e-mail">     <br>

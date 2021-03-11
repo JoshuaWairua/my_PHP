@@ -1,22 +1,29 @@
 <?php
     include_once "dbHandler-inc.php";
 
-    $first = $_POST["first"];
-    $last = $_POST["last"];
-    $email = $_POST["email"];
-    $uid = $_POST["uid"];
-    $pwd = $_POST["pwd"];
+    // $first = $_POST["first"];
+    // $last = $_POST["last"];
+    // $email = $_POST["email"];
+    // $uid = $_POST["uid"];
+    // $pwd = $_POST["pwd"];
 
+    //the above code will give room for sql injection whereby a hacker can access your db by writing some code into the inputs in the form. The mysqli_real_escape_string() function prevents this
+    $first = mysqli_real_escape_string($conn, $_POST["first"]);     
+    $last = mysqli_real_escape_string($conn, $_POST["last"]);
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $uid = mysqli_real_escape_string($conn, $_POST["uid"]);
+    $pwd = mysqli_real_escape_string($conn, $_POST["pwd"]);
+
+    
     // creating a session variable
     $_SESSION['username'] = $_POST["uid"];
 
         switch ($_POST['subMEET']) {
             case 'subCreate':
-                 // creating/inserting data into db
-                 $sqlCreate = "INSERT INTO users (user_first, user_last, user_email, user_uid, user_pwd) VALUES ('$first', '$last', '$email', '$uid', '$pwd');";
-                 mysqli_query($conn, $sqlCreate);
-                    // taking the user back to the home page after successfully/unsuccessfully creating a user profile
-                    echo "You have successfully created your profile!";
+                // creating/inserting data into db
+                $sqlCreate = "INSERT INTO users (user_first, user_last, user_email, user_uid, user_pwd) VALUES ('$first', '$last', '$email', '$uid', '$pwd');";
+                mysqli_query($conn, $sqlCreate);
+                echo "You have successfully created your profile!";
             break;
 
             case 'subRead':                
@@ -26,9 +33,9 @@
                 // Reading Data from db
                     $resultCheck = mysqli_num_rows($resultR);  #checking if there are any results from the code above. It is optional but recommended. It returns the number of rows that are found. If 0, then there was no results. If greater than zero, then the query returned at least one result
                     if ($resultCheck > 0) {
-                        #fetching the data from the querried result in the db and assigning the fetched data into an array called $row
+                        #fetching the data from the querried result in the db and assigning the fetched data into an array called $row by using a while loop 
                         while ($row = mysqli_fetch_assoc($resultR)) {
-                            echo "Hi " . $row["user_uid"] . "! Welcome to my chocolate factory!". "<br>";       #the names of the $row array will be the columns of the table 
+                            echo "Hi " . $row["user_uid"] . "! Welcome to my chocolate factory!". "<br>";       #the names/key of the $row array will be the columns of the table 
                         }
                     }
             break;
@@ -41,7 +48,7 @@
             break;
 
             case 'subDelete':
-                // creating/inserting data into db
+                // deleting data from db
                 $sqlDelete = "DELETE FROM users WHERE user_uid = '" . $_POST["uid"] . "' OR user_uid = 'user';";
                 mysqli_query($conn, $sqlDelete);
                 echo "You have successfully deleted your profile!";
